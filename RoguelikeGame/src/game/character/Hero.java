@@ -1,12 +1,14 @@
 package game.character;
 
-import it.randomtower.engine.ME;
-import it.randomtower.engine.ResourceManager;
-import it.randomtower.engine.entity.Entity;
+import game.states.GameWorld;
+import it.marteEngine.ME;
+import it.marteEngine.ResourceManager;
+import it.marteEngine.entity.Entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Hero extends Entity {
 	
@@ -20,7 +22,7 @@ public class Hero extends Entity {
 	private static final int scaleFactor = 4;
 	private static final int step = tileSize * scaleFactor;
 
-	public Hero(float x, float y) {
+	public Hero(float x, float y, GameWorld gameWorld) {
 		super(x, y);
 		
 		setGraphic(ResourceManager.getSpriteSheet("char").getSprite(1, 0).getScaledCopy(scaleFactor));
@@ -29,6 +31,11 @@ public class Hero extends Entity {
 		addType(HERO);
 		
 		defineControls();
+		this.world = gameWorld;
+	}
+	
+	public Hero(Vector2f vector, GameWorld gameWorld) {
+		this(vector.x + 32, vector.y + 32, gameWorld);
 	}
 
 	private void defineControls() {
@@ -48,25 +55,25 @@ public class Hero extends Entity {
 	}
 	
 	private void updateMovements() {
-		if (pressed(UP)) {
+		if (pressed(UP) && y-step >= 0) {
 			move(0, -1);
 			if(collide(SOLID, x, y)!=null)
 				move(0, 1);
 			return;
 		} 
-		else if (pressed(DOWN)) {
+		else if (pressed(DOWN) && y+step < world.height) {
 			move(0, 1);
 			if(collide(SOLID, x, y)!=null)
 				move(0, -1);
 			return;
 		} 
-		else if (pressed(RIGHT)) {
+		else if (pressed(RIGHT) && x+step < world.height) {
 			move(1, 0);
 			if(collide(SOLID, x, y)!=null)
 				move(-1, 0);
 			return;
 		} 
-		else if (pressed(LEFT)) {
+		else if (pressed(LEFT) && x-step >= 0) {
 		    move(-1, 0);
 		    if(collide(SOLID, x, y)!=null)
 		    	move(1, 0);

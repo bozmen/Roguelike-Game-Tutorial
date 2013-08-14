@@ -1,8 +1,8 @@
 package tutorial;
 
-import it.randomtower.engine.ResourceManager;
-import it.randomtower.engine.World;
-import it.randomtower.engine.entity.TextEntity;
+import it.marteEngine.ResourceManager;
+import it.marteEngine.World;
+import it.marteEngine.entity.TextEntity;
 
 import java.io.IOException;
 

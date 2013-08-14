@@ -1,7 +1,7 @@
 package game.entities;
 
-import it.randomtower.engine.ResourceManager;
-import it.randomtower.engine.entity.Entity;
+import it.marteEngine.ResourceManager;
+import it.marteEngine.entity.Entity;
 
 public class Wall extends Entity {
 	
