@@ -6,5 +6,7 @@
 	<!-- songs  -->
 	<!-- images -->
 	<!-- sheets -->
+	<sheet file="lofi_char.png" height="8" width="8" key="char"></sheet>
+	<sheet file="lofi_environment.png" height="8" width="8" key="env"></sheet>
 	<!-- fonts  -->
 </resources> 
