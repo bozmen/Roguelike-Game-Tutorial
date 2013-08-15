@@ -1,5 +1,7 @@
 package game.character;
 
+import game.character.ai.CreatureAi;
+import game.character.ai.PlayerAi;
 import game.states.GameWorld;
 import it.marteEngine.ME;
 import it.marteEngine.ResourceManager;
@@ -10,7 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Hero extends Entity {
+public class Hero extends Creature {
 	
 	public static final String HERO = "hero";
 	public static final String UP = "up";
@@ -21,6 +23,8 @@ public class Hero extends Entity {
 	private static final int tileSize = 8;
 	private static final int scaleFactor = 4;
 	private static final int step = tileSize * scaleFactor;
+	
+	public CreatureAi ai;
 
 	public Hero(float x, float y, GameWorld gameWorld) {
 		super(x, y);
@@ -32,6 +36,8 @@ public class Hero extends Entity {
 		
 		defineControls();
 		this.world = gameWorld;
+		
+		creatureAi = new PlayerAi(this);
 	}
 	
 	public Hero(Vector2f vector, GameWorld gameWorld) {
@@ -49,11 +55,6 @@ public class Hero extends Entity {
 		define(LEFT, Input.KEY_A, Input.KEY_LEFT);
 	}
 	
-	private void move(int dx, int dy){
-		x += dx*step;
-		y += dy*step;
-	}
-	
 	private void updateMovements() {
 		if (pressed(UP) && y-step >= 0) {
 			move(0, -1);
@@ -67,7 +68,7 @@ public class Hero extends Entity {
 				move(0, -1);
 			return;
 		} 
-		else if (pressed(RIGHT) && x+step < world.height) {
+		else if (pressed(RIGHT) && x+step < world.width) {
 			move(1, 0);
 			if(collide(SOLID, x, y)!=null)
 				move(-1, 0);

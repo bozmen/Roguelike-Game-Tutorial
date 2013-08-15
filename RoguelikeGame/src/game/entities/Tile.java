@@ -1,7 +1,13 @@
 package game.entities;
 
+
+
 import it.marteEngine.ResourceManager;
 import it.marteEngine.entity.Entity;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 public class Tile extends Entity {
 	
@@ -26,6 +32,31 @@ public class Tile extends Entity {
 			collidable = false; 
 			addType(type);
 		}
+	}
+
+
+	public boolean isDiggable() {
+		if (isType(WALL)){
+			return true;
+		}
+			return false; 
+	}
+
+
+	public void changeType(String type) {
+		if(type!=null){
+			if(type.equalsIgnoreCase(FLOOR)){
+				clearTypes();
+				addType(FLOOR);
+				collidable = false;
+				setGraphic(ResourceManager.getSpriteSheet("env").getSubImage(0, 5).getScaledCopy(SCALE_FACTOR));
+			}
+		}
+	}
+	
+	public void render(GameContainer container, Graphics g) throws SlickException{
+		super.render(container, g);
+		g.drawString(getType().toString(), x, y);
 	}
 
 }
