@@ -56,7 +56,6 @@ public class Tile extends Entity {
 	
 	public void render(GameContainer container, Graphics g) throws SlickException{
 		super.render(container, g);
-		g.drawString(getType().toString(), x, y);
 	}
 
 }

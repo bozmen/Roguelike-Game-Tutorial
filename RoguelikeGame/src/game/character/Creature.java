@@ -10,6 +10,8 @@ public class Creature extends Entity{
 	public static final int SCALE = 4;
 	public static final int STEP = SCALE * TILE_SIZE;
 	
+	public static final String FUNGUS = "fungus";
+	
 	protected CreatureAi creatureAi;
 
 	public Creature(float x, float y) {
@@ -23,17 +25,14 @@ public class Creature extends Entity{
 	public void move(int dx, int dy) {
 		float cx = x + dx * STEP;
 		float cy = y + dy * STEP;
-		if(collide(Tile.WALL, cx, cy) == null){
+		if(collide(new String[]{Tile.WALL, FUNGUS}, cx, cy) == null){
 			x = cx;
 			y = cy;
 		}
 	}
 	
 	public void collisionResponse(Entity other){
-		System.out.println("5");
-		System.out.println(creatureAi);
 		creatureAi.collide(other);
-		System.out.println("6");
 	}
 
 }

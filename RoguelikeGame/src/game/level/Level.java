@@ -47,13 +47,21 @@ public class Level {
 	}
 
 	public Vector2f findFreePlace() {
-		for(int x = 0; x < width; x++){
-			for(int y = 0; y < height; y++){
-				if(tiles[x][y].equalsIgnoreCase(Tile.FLOOR)){
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (tiles[x][y].equalsIgnoreCase(Tile.FLOOR)) {
 					return new Vector2f(x, y);
 				}
 			}
 		}
 		return new Vector2f();
+	}
+
+	public boolean isFree(int x, int y) {
+		if (x >= 0 && y >= 0 && x < width && y < height
+				&& tiles[x][y].equalsIgnoreCase(Tile.FLOOR)) {
+			return true;
+		}
+		return false;
 	}
 }
